@@ -1,0 +1,11 @@
+{
+  "name": "garmin",
+  "description": "Skills for Garmin Connect IQ: Monkey C apps, watch faces and data fields, screen design, the simulator and the Connect IQ Store.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Jakub",
+    "url": "https://github.com/jk0bson"
+  },
+  "repository": "https://github.com/jk0bson/garmin-skills",
+  "license": "MIT"
+}

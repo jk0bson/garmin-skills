@@ -1,0 +1,15 @@
+{
+  "name": "garmin-skills",
+  "description": "Agent skills for building and publishing Garmin Connect IQ apps, watch faces and data fields.",
+  "owner": {
+    "name": "Jakub",
+    "url": "https://github.com/jk0bson"
+  },
+  "plugins": [
+    {
+      "name": "garmin",
+      "source": "./",
+      "description": "Skills for Garmin Connect IQ: Monkey C apps, watch faces and data fields, screen design, the simulator and the Connect IQ Store."
+    }
+  ]
+}
