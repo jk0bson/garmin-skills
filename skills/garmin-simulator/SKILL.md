@@ -43,4 +43,4 @@ Marketing states (minute 58, a hill, an alert) come from a temporary copy that f
 
 ## Restart when it hangs
 
-If a launch never switches the window to the new device, or a capture or log comes back empty, quit the simulator (`pkill -f MacOS/simulator`) and start again.
+If a launch never switches the window to the new device, or a capture or log comes back empty, quit the simulator (`pkill -x simulator`) and start again.

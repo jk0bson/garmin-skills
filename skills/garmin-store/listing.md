@@ -7,7 +7,7 @@
 | What's New | one per language | do not just repeat "Version x.y.z" |
 | Cover | 500×500, under 300 KB | |
 | Hero | 1440×720, under 2 MB | **one per language**, add it in each language tab |
-| Screenshots | 5 maximum, under 150 KB each | each language has its own set; a GIF counts as one |
+| Screenshots | 5 maximum, under 150 KB each | each language has its own set; an animated GIF counts as one of the 5 |
 | Version | must be higher than every earlier upload | the portal shows `1.2.0` as "1.2" |
 
 ## Description structure that works

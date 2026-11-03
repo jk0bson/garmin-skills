@@ -1,6 +1,6 @@
 ---
 name: garmin-store
-description: Prepares and reviews a Connect IQ Store listing, covering titles, descriptions, What's New, cover, hero and screenshot images, the site's limits, categories, pricing and what makes a watch app, face or data field get downloaded and sold. Use when publishing or updating a Garmin app on apps.garmin.com.
+description: Prepares and reviews a Connect IQ Store listing, covering titles, descriptions, What's New, composing the cover, hero and screenshot images (not capturing them), the site's limits, categories, pricing and what makes a watch app, face or data field get downloaded and sold. Use when publishing or updating a Garmin app on apps.garmin.com.
 ---
 
 # Connect IQ Store listings

@@ -5,7 +5,7 @@
 Simulation > Activity Data opens a window with:
 
 - Data Source: "Data Simulation" (random values, often unrealistic: 1:55 /km pace), "FIT/GPX Playable File", "Workout FIT File".
-- Load File: active once a file source is chosen. `Cmd+Shift+G`, paste the path, Enter twice. The window then shows `00:00:00 / 00:04:59`.
+- Load File: active once a file source is chosen. `Cmd+Shift+G`, paste the path, Enter twice. The window then shows the file's length, e.g. `00:00:00 / 00:04:59` for 5 minutes.
 - Data Field Timer Controls: Start, Pause, Lap, Save, Discard, Workout Step.
 - A play button and a progress slider. Playback runs in real time.
 

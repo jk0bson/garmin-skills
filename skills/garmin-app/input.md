@@ -4,7 +4,7 @@ Verified in the simulator on vívoactive 5, FR165, fēnix 7 Pro and Venu 4.
 
 ## The bug
 
-`WatchUi.BehaviorDelegate` maps a screen tap to `onSelect()`, which is also START. `onTap()` is never reached, even when overridden. On watches without UP/DOWN buttons (vívoactive 5/6, Venu 4) every tap, drop of water or sleeve started or paused the session.
+`WatchUi.BehaviorDelegate` maps a screen tap to `onSelect()`, which is also START. `onTap()` is never reached, even when overridden. On watches without UP/DOWN buttons (vívoactive 5/6, Venu 4) every tap or drop of water on the screen started or paused the session.
 
 ## The fix
 

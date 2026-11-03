@@ -9,7 +9,7 @@ System fonts change between watches, and small MIP screens have no vector fonts.
 1. Pick an OFL typeface and keep its license file next to it.
 2. For each round screen size, render only the characters you need (digits and `:.-` for numbers; capitals, accents and a few symbols for labels) at `em × size / 390`.
 3. Write a BMFont text `.fnt` and an RGBA `.png` atlas. Put the glyph coverage in R, G, B and A: with coverage only in alpha, the watch draws hard edges.
-4. Trim `lineHeight` to the tallest glyph so `TEXT_JUSTIFY_VCENTER` centers on the ink.
+4. Start the line at the tallest glyph and end it at the lowest descender, so `TEXT_JUSTIFY_VCENTER` centers on the ink. Number fonts without descenders get a line exactly as tall as the digits.
 5. Save to `resources-round-WxH/fonts/` with a `fonts.xml`, plus a fallback in `resources/fonts/`.
 
 `scripts/bitmap_fonts.py` does all of this from your manifest's device list.

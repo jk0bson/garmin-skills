@@ -4,13 +4,13 @@ Simulation > Activity Data > Data Source "FIT/GPX Playable File" > Load File, th
 
 Simple but believable model: standing start, warm-up, about 5:15 /km, a 12 m hill and the descent, a final push.
 Heart rate follows effort with about 30 s of lag, GPS noise, cadence and power follow speed.
-The route is an ellipse around a park (Bois de la Cambre, Brussels); change LAT0/LON0 to move it.
+The route is an ellipse starting in Central Park, New York; change LAT0/LON0 to move it.
 Usage: python3 demo_run.py [out.fit] [seconds]     No dependencies.
 """
 import math, random, struct, sys, time
 
 FIT_EPOCH = 631065600          # 1989-12-31 00:00 UTC
-LAT0, LON0 = 50.8118, 4.3778
+LAT0, LON0 = 40.7812, -73.9665
 
 
 def crc16(data, crc=0):
@@ -108,5 +108,7 @@ if __name__ == "__main__":
     assert 900 < pts[-1][6] < 1000 and 150 < max(p[4] for p in pts) < 175
     out = sys.argv[1] if len(sys.argv) > 1 else "demo_run.fit"
     secs = int(sys.argv[2]) if len(sys.argv) > 2 else 300
+    if secs < 30:
+        sys.exit("seconds must be at least 30")
     write(out, secs)
     print(out, secs, "s")

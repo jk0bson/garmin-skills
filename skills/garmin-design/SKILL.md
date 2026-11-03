@@ -27,11 +27,11 @@ A font whose character set includes `É` or `À` reserves room above the capital
 
 ## Check that every digit reads as itself
 
-Some typefaces draw `1` as a bare stroke, so "Z1" reads "ZI" and "101" reads "IOI" at a glance. Look at `1`, `7`, `0` and `O` large before picking a typeface; patch the glyph in the font generator if needed.
+Some typefaces draw `1` as a bare stroke, so "Z1" reads "ZI" and "101" reads "IOI" at a glance. Look at `1`, `7`, `0` and `O` large before picking a typeface. If one fails, pick another typeface or redraw that glyph in your own font generator.
 
 ## Every label fits its slot in every language
 
-Measure each label's pixel width in every language against the slot it lands in. French and German labels run 30 % longer. Drop the unit, then abbreviate, never let two labels touch ([screens.md](screens.md)).
+Measure each label's pixel width in every language against the slot it lands in. Translated labels run longer (French ones overflowed); measure, do not assume. Drop the unit, then abbreviate, never let two labels touch ([screens.md](screens.md)).
 
 ## Pick MIP colors yourself
 

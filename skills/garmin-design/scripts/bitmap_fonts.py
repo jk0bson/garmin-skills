@@ -25,11 +25,12 @@ DEFAULT_DEVICES = os.path.expanduser("~/Library/Application Support/Garmin/Conne
 def build(out, name, ttf, size, chars, track):
     font = ImageFont.truetype(ttf, size)
     glyphs = []
-    for ch in chars:
+    for ch in dict.fromkeys(chars):   # each character once
         l, t, r, b = font.getbbox(ch, anchor="ls")
         glyphs.append((ch, l, t, r, b, round(font.getlength(ch) + track * size)))
     top = min(g[2] for g in glyphs if g[0] != " ")
     base = -top
+    bottom = max(g[4] for g in glyphs if g[0] != " ")   # lowest descender (0 for digits)
     pad, atlas_w = 2, 512
     x = y = row_h = 0
     placed = []
@@ -52,7 +53,7 @@ def build(out, name, ttf, size, chars, track):
         img.paste(Image.merge("RGBA", (mask, mask, mask, mask)), (gx, gy))   # coverage in color AND alpha
     img.save(os.path.join(out, name + ".png"))
     lines = [f'info face="{name}" size={size} bold=0 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=0,0 outline=0',
-             f"common lineHeight={base + 1} base={base} scaleW={atlas_w} scaleH={atlas_h} pages=1 packed=0",
+             f"common lineHeight={base + max(bottom, 0) + 1} base={base} scaleW={atlas_w} scaleH={atlas_h} pages=1 packed=0",
              f'page id=0 file="{name}.png"', f"chars count={len(placed)}"]
     for ch, gx, gy, w, h, l, t, adv in placed:
         lines.append(f"char id={ord(ch)} x={gx} y={gy} width={w} height={h} xoffset={l} yoffset={base + t} xadvance={adv} page=0 chnl=15")
@@ -62,11 +63,18 @@ def build(out, name, ttf, size, chars, track):
 def screen_sizes(project, devices):
     """round screen sizes of the devices listed in the manifest"""
     ids = re.findall(r'iq:product id="([^"]+)"', open(os.path.join(project, "manifest.xml")).read())
-    sizes = set()
+    sizes, skipped = set(), []
     for d in ids:
-        r = json.load(open(os.path.join(devices, d, "compiler.json")))["resolution"]
+        path = os.path.join(devices, d, "compiler.json")
+        if not os.path.exists(path):
+            raise SystemExit(f"device '{d}' is not downloaded: {path} missing (use the SDK Manager)")
+        r = json.load(open(path))["resolution"]
         if r["width"] == r["height"]:
             sizes.add(r["width"])
+        else:
+            skipped.append(d)
+    if skipped:
+        print("not round, using the resources/fonts fallback:", ", ".join(skipped))
     return sorted(sizes)
 
 

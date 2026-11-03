@@ -31,4 +31,4 @@ Render each slot with its longest real value, not a typical one: `10:00:00`, `1:
 
 ## Audit copy
 
-Build a temporary copy that, on every `onUpdate`, cycles every data choice through every slot, injects extreme values, and prints a line when two labels or values overlap. Run it on the nine sizes; read the log and the screenshots. Never ship the audit code.
+Cycle every data choice through every slot with extreme values on the nine sizes and log overlaps: the method is in `garmin-simulator` ([captures.md](../garmin-simulator/captures.md)).

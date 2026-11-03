@@ -23,4 +23,4 @@ A crop a few pixels too wide, then masked to a circle, cuts off whatever sits at
 
 ## Demo states
 
-For a screen that is hard to reach (minute 58 of a run, a coach alert, a hill), compile a temporary copy that forces the values in `onUpdate`, capture it, and never ship that copy.
+Hard-to-reach screens (minute 58 of a run, a coach alert, a hill) come from a temporary demo copy: see `garmin-simulator` ([captures.md](../garmin-simulator/captures.md)).
