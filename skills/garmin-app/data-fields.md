@@ -29,6 +29,8 @@ The simulator's Data Fields > Layout menu offers 1, 2, 3 A, 3 B and 4 fields. It
 
 ## Optional data
 
+`has` only says the field exists on this watch; it is still `null` with no sensor connected. Write `(info has :currentPower && info.currentPower != null)`.
+
 | Data | Guard | Note |
 |---|---|---|
 | Power | `info has :currentPower` | missing on many watches |

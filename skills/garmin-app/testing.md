@@ -3,6 +3,8 @@
 ## Commands
 
 ```sh
+SDK="$(cat "$HOME/Library/Application Support/Garmin/ConnectIQ/current-sdk.cfg")bin"   # active SDK; put $SDK/ before monkeyc and monkeydo
+
 # one device, with tests
 monkeyc -f monkey.jungle -o test.prg -y developer_key -d fr165 -t -w
 monkeydo test.prg fr165 -t
@@ -34,3 +36,34 @@ monkeyc -f monkey.jungle -o app.iq -y developer_key -e -r -w   # wait for "N OUT
 ## Crashes from real users
 
 The SDK's Error Reporting Application (ERA) downloads crash reports from watches running your store app. Tesla-Link fixed most of its 7.11 to 7.14 crashes from it (SDK tool, not yet used here).
+
+## A minimal test
+
+Logic in `source/Pace.mc`, tests in `source/PaceTest.mc`. Verified on fr165 with SDK 9.2: both PASS.
+
+```monkeyc
+// Pace.mc
+import Toybox.Lang;
+module Pace {
+    function secPerKm(speed as Float?) as Number? {
+        if (speed == null || speed < 0.5) { return null; }
+        return (1000.0 / speed + 0.5).toNumber();
+    }
+}
+
+// PaceTest.mc
+import Toybox.Lang;
+import Toybox.Test;
+(:test)
+function paceNullSpeed(logger as Logger) as Boolean {
+    return Pace.secPerKm(null) == null;
+}
+(:test)
+function paceFiveMinutes(logger as Logger) as Boolean {
+    var v = Pace.secPerKm(3.3333) as Number;
+    Test.assertEqualMessage(v, 300, "3.33 m/s should be 5:00 /km");
+    return true;
+}
+```
+
+The simulator must be running before `monkeydo test.prg fr165 -t`.

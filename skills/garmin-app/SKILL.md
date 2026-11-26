@@ -1,6 +1,6 @@
 ---
 name: garmin-app
-description: Writes and reviews Garmin Connect IQ apps, watch faces and data fields in Monkey C, covering touch and button input, optional Activity.Info fields, data field layouts, sensor edge cases, settings, memory limits, watch face complications and always-on rules, background tasks and unit tests that compile. Use when writing, fixing or reviewing Monkey C code for a Garmin watch.
+description: Writes and reviews Garmin Connect IQ apps, watch faces and data fields in Monkey C, covering touch and button input, optional Activity.Info fields, data field layouts, sensor edge cases, settings, memory limits, watch face complications and always-on rules, background tasks and unit tests that compile. Use when writing, fixing or reviewing Monkey C code (.mc files, manifest.xml, monkey.jungle, Toybox APIs) for a Garmin watch app, WatchFace or DataField.
 ---
 
 # Garmin apps in Monkey C
@@ -48,3 +48,12 @@ Without `version="x.y.z"` on `iq:application`, the store picks a version on its 
 ## Respect the memory budget
 
 A data field gets 256 KB on some watches and 128 KB on others, down to 32 KB on old devices; read each device's limit in its `compiler.json`. Bitmap fonts and buffers count. Measure with `System.getSystemStats().usedMemory` in a test copy ([memory-and-api.md](memory-and-api.md)).
+
+## Pre-flight check
+
+Before calling a Monkey C change done:
+1. Every optional `Activity.Info` field or module symbol is guarded with `has` **and** checked for `null`.
+2. Touch watches use `WatchUi.InputDelegate`, never `BehaviorDelegate`; taps, swipes, flicks, drags and holds are handled or swallowed.
+3. Every per-activity variable, buffer and alert cooldown is reset in `onTimerReset()`.
+4. The layout follows `dc.getWidth()`/`getHeight()`, `getObscurityFlags()` and `getBackgroundColor()`.
+5. `monkeyc -w` builds without new warnings and the `(:test)` functions pass ([testing.md](testing.md)).

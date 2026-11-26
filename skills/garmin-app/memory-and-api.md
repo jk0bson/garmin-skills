@@ -61,3 +61,7 @@ From Crystal Face (117 watches) and its fork (seen in Crystal Face, not verified
 - **A complication value can be `null`** (seen in low-power mode): keep what is on screen and return.
 - **`Background.exit(data)` can throw** when the data is too large: wrap it in `try` and send only what the face needs.
 - **Check pending web requests in `onExitSleep`** (when the user looks at the watch) instead of on a timer.
+
+## Resources
+
+Load fonts and bitmaps once with `WatchUi.loadResource` in `onLayout` (or `initialize`) and keep them in member variables; never in `onUpdate`, which runs every second or more. Drop large ones in `onHide` if the view can come back later.
