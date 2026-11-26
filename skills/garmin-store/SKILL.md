@@ -11,7 +11,7 @@ Making the screenshots in the simulator belongs to `garmin-simulator`.
 
 ## Respect the form's hard limits
 
-Titles of at most 50 characters, descriptions of at most 4000, no `<` or `>` anywhere in a description (the form rejects "Settings > Data Screens"), a 500×500 cover, a 1440×720 hero for **each** language, at most 5 screenshots under 150 KB each, and a version higher than the last upload ([listing.md](listing.md)). Check all of it with a script before opening the site.
+Titles of at most 50 characters, descriptions of at most 4000, no `<` or `>` anywhere in a description (the form rejects "Settings > Data Screens"), a 500×500 cover, a 1440×720 hero for **each** language, at most 5 screenshots under 150 KB each, and a version higher than the last upload ([listing.md](listing.md)). Check all of it with `scripts/check_listing.py STORE_FOLDER` before opening the site.
 
 ## Lead with the problem it solves
 

@@ -32,3 +32,11 @@ Select every activity the app really works in, including its subtypes (a running
 From developer forum reports, not an official list.
 
 Copies of Garmin's own watch faces, the Garmin logo or brand, licensed characters without rights, safety apps (incident detection, radar), extreme sports (diving, skydiving, base jumping), medical claims without a "not medical advice" notice.
+
+## Check before uploading
+
+`scripts/check_listing.py STORE_FOLDER` reads `store.json`, `description_<lang>.txt`, `whats_new.txt` and `images/`, and exits with 1 when something would be refused: a title over 50 characters, a description over 4000 or containing `<` or `>`, a cover that is not 500×500 under 300 KB, a hero that is not 1440×720 under 2 MB in each language, more than 5 screenshots or one over 150 KB. A screenshot that is not 900×900 (450×450 for a GIF) is a note, not an error. Tested on a real listing (clean) and on a copy with a 51-character title, a `>`, a wrong cover and a missing hero (4 errors).
+
+## One title per language
+
+Each language tab has its own title, limited to 50 characters. Write the search words people use in that language (running / course à pied / Laufen) instead of translating the English title word for word, and keep the name first so the app stays recognizable. Reported by developers, not verified here: the store search favors the title of the language the user browses in.
