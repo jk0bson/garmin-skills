@@ -28,3 +28,4 @@ monkeyc -f monkey.jungle -o app.iq -y developer_key -e -r -w   # wait for "N OUT
 - macOS has no `timeout` command.
 - A font loaded in `onLayout` into `var f as FontResource` warns about `Null` at `-l 2`: declare it `(:initialized) var f as FontResource;` (seen on Instinct 3 by another developer, not verified here).
 - Strict typing (SDK docs, not verified here): a concrete type does not accept `null` (write `Number?`); `Array<String>` does not match `Array<String or Number>`; a null check on a member variable is forgotten after any function call, so copy the member to a local first.
+- A UTF-8 byte-order mark at the start of a `strings.xml` broke the build: save resource XML without BOM (seen in Crystal Face, not verified here).

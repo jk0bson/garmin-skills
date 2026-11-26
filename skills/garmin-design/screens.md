@@ -32,3 +32,7 @@ Render each slot with its longest real value, not a typical one: `10:00:00`, `1:
 ## Audit copy
 
 Cycle every data choice through every slot with extreme values on the nine sizes and log overlaps: the method is in `garmin-simulator` ([captures.md](../garmin-simulator/captures.md)).
+
+## Always-on shift
+
+On AMOLED always-on screens, move the content a few pixels every minute: pick a vertical offset from a short table with `clock.min % n` and add it to every `y` (seen in Crystal Face, not verified here). Pixel and time limits are in `garmin-app` ([memory-and-api.md](../garmin-app/memory-and-api.md)).

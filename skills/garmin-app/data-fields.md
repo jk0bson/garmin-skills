@@ -60,3 +60,7 @@ Steps, fat or carbohydrate burned and the next alarm time are not available to a
 - `birthYear` can be 0: treat it as not set.
 - A heart-rate history sample of 255 (`ActivityMonitor.INVALID_HR_SAMPLE`) means no reading; it is not `null`.
 - Every field can be `null`, and newer ones are missing on old watches: guard with `has`.
+
+Complications (seen in Crystal Face, not verified here):
+- Recovery time comes in **minutes**, not seconds.
+- The steps and floors complications have no goal: read the goal from `ActivityMonitor`.

@@ -48,3 +48,15 @@ Properties, from the SDK docs, not verified here:
 ## No garbage collector
 
 Monkey C counts references: two objects that point at each other (view and app, child and parent) are never freed. Hold the back link as `parent.weak()` and read it with `.get()`, which returns `null` once the parent is gone (SDK docs, not verified here).
+
+## One watch face for old and new watches
+
+From Crystal Face (117 watches) and its fork (seen in Crystal Face, not verified here):
+- **Exclude code per memory tier at compile time.** Tag costly code with annotations (`(:hasComplications)` / `(:noComplications)` on two versions of the same function) and drop one per watch with `<device>.excludeAnnotations = ...` in `monkey.jungle`. Small watches get a lighter build instead of an out-of-memory crash.
+- **Ship always-on code only to AMOLED watches:** `<device>.sourcePath = $(<device>.sourcePath);always-on-source`.
+- **Switch to always-on lazily.** `onEnterSleep` / `onExitSleep` only set a flag and call `requestUpdate`; the next `onUpdate` swaps the layout, drops the normal screen's drawables to free memory and reloads them on the way back.
+- **A watch face can start asleep.** On Venu firmware 2.80 `onEnterSleep` was not called at start-up, and the face crashed on a `null` it expected to be set. Never assume a sleep callback ran before the first draw.
+- **`onPartialUpdate`:** guard with `WatchFace has :onPartialUpdate`, clip to the seconds' previous box with `setClip`, clear it, draw the new seconds; call `dc.clearClip()` at the top of every full `onUpdate`.
+- **A complication value can be `null`** (seen in low-power mode): keep what is on screen and return.
+- **`Background.exit(data)` can throw** when the data is too large: wrap it in `try` and send only what the face needs.
+- **Check pending web requests in `onExitSleep`** (when the user looks at the watch) instead of on a timer.

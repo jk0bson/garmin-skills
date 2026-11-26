@@ -36,3 +36,7 @@ class MyDelegate extends WatchUi.InputDelegate {
 - During a session, only physical buttons may start, pause or score. A tap may adjust a setting before the start.
 - On button-less watches, give every action a tap zone (top, bottom, very bottom) and say so in the store description.
 - Test a tap in the simulator with real mouse events (`CGEventPost`); System Events `click at` does not reach the watch screen.
+
+## Watch face touch
+
+In a watch face, `WatchFaceDelegate.onPress(evt)` gets the touch. Find the complication under `evt.getCoordinates()` and open Garmin's own widget with `Complications.exitTo(id)` inside a `try` (seen in Crystal Face, not verified here).
