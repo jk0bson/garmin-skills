@@ -1,12 +1,12 @@
 # Driving the simulator on macOS
 
 ```sh
-SDK="$HOME/Library/Application Support/Garmin/ConnectIQ/Sdks/<sdk>/bin"
+SDK="$(cat "$HOME/Library/Application Support/Garmin/ConnectIQ/current-sdk.cfg")bin"   # active SDK, path ends with /
 open "$SDK/ConnectIQ.app"; sleep 8
 "$SDK/monkeydo" app.prg fr165 > run.log 2>&1 &      # wait ~14 s; the window title shows the device
 ```
 
-The process is called `simulator` for System Events.
+The process is called `simulator` for System Events. The same `current-sdk.cfg` lives in `%APPDATA%\Garmin\ConnectIQ\` on Windows and `~/.Garmin/ConnectIQ/` on Linux (not verified here).
 
 ## Menus
 

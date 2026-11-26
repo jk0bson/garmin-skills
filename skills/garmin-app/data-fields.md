@@ -52,3 +52,11 @@ Steps, fat or carbohydrate burned and the next alarm time are not available to a
 - Grade-adjusted pace: speed × C(i) / C(0), with Minetti 2002 running cost `C(i) = 155.4i⁵ − 30.4i⁴ − 43.3i³ + 46.3i² + 19.5i + 3.6`, grade clamped to ±30 %.
 - Cardiac drift: efficiency = speed / heart rate; baseline averaged from minute 3 to 13, current as a ~5 min moving average, drift = (base − now) / base. Only while running faster than 1.5 m/s.
 - Heart-rate ring: give each zone the same arc length and map heart rate piecewise inside its zone. A linear map over unequal zones puts the marker in the next zone's arc before the zone changes.
+
+## All-day data (watch faces)
+
+`ActivityMonitor.getInfo()` and `UserProfile.getProfile()` (seen on Instinct 3 by another developer, not verified here):
+- `distance` is in centimeters, `weight` in grams.
+- `birthYear` can be 0: treat it as not set.
+- A heart-rate history sample of 255 (`ActivityMonitor.INVALID_HR_SAMPLE`) means no reading; it is not `null`.
+- Every field can be `null`, and newer ones are missing on old watches: guard with `has`.

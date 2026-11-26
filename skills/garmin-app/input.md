@@ -26,6 +26,8 @@ class MyDelegate extends WatchUi.InputDelegate {
     }
     function onSwipe(evt as WatchUi.SwipeEvent) as Boolean { return true; }   // swallow unless used
     function onHold(evt as WatchUi.ClickEvent) as Boolean { return true; }
+    function onFlick(evt as WatchUi.FlickEvent) as Boolean { return true; }
+    function onDrag(evt as WatchUi.DragEvent) as Boolean { return true; }
 }
 ```
 

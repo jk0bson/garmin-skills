@@ -11,7 +11,7 @@ Screens, fonts and colors belong to `garmin-design`. Driving the simulator belon
 
 ## Never use BehaviorDelegate on touch watches
 
-With a `BehaviorDelegate`, a tap on the screen arrives as `onSelect`, the same as START, and `onTap` is never called even when overridden. Water on the screen in the shower paused and started sauna sessions on vívoactive and Venu. Use a `WatchUi.InputDelegate`: `onKey` for `KEY_ENTER` (START), `KEY_ESC` (BACK), `KEY_UP`, `KEY_DOWN`, `KEY_MENU`, and handle or swallow `onTap`, `onSwipe`, `onFlick` and `onHold` yourself ([input.md](input.md)).
+With a `BehaviorDelegate`, a tap on the screen arrives as `onSelect`, the same as START, and `onTap` is never called even when overridden. Water on the screen in the shower paused and started sauna sessions on vívoactive and Venu. Use a `WatchUi.InputDelegate`: `onKey` for `KEY_ENTER` (START), `KEY_ESC` (BACK), `KEY_UP`, `KEY_DOWN`, `KEY_MENU`, and handle or swallow `onTap`, `onSwipe`, `onFlick`, `onDrag` and `onHold` yourself ([input.md](input.md)).
 
 ## Guard every optional field with `has`
 

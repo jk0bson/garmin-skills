@@ -20,3 +20,4 @@ System fonts change between watches, and small MIP screens have no vector fonts.
 - Wide humanist typefaces (Amarna) are about 15 % wider than condensed ones (Barlow Condensed) at the same digit height: re-check every slot.
 - Proportional digits make a centered number wobble slightly as it changes; acceptable centered, ugly left-aligned.
 - Each extra font and size costs memory: a data field on fēnix 8 has 128 KB.
+- `Gregorian.info(t, Time.FORMAT_MEDIUM)` returns day and month names in the watch's language (Thai, for one), with glyphs your bitmap font does not have. Use `FORMAT_SHORT` (numbers, 1 = Sunday) and your own names in the strings files (seen by another developer, not verified here).

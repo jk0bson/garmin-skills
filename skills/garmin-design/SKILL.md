@@ -39,7 +39,11 @@ MIP screens show 64 colors, channel values 00/55/AA/FF only. The compiler rounds
 
 ## Draw arcs with `drawArc`
 
-Arcs built from polygons look hand-drawn on a real watch. `dc.drawArc` is smooth. An arc from an angle to itself draws a full circle: guard zero-length arcs.
+Arcs built from polygons look hand-drawn on a real watch. `dc.drawArc` is smooth. An arc from an angle to itself draws a full circle: guard zero-length arcs. Pass whole-degree angles: SDK 9.2 types them `Numeric`, but Float angles were truncated in a segmented ring (seen on Instinct 3 by another developer, not verified here).
+
+## Draw text on a transparent background
+
+`dc.setColor(fg, bg)` with an opaque `bg` fills the whole font box behind the text and erases what was drawn there: an earlier label looked clipped. Use `Graphics.COLOR_TRANSPARENT` as the background before `drawText` (seen on Instinct 3 by another developer, not verified here).
 
 ## A moving marker must not cover what it points at
 
