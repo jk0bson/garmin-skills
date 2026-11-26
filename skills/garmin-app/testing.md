@@ -4,6 +4,8 @@
 
 ```sh
 SDK="$(cat "$HOME/Library/Application Support/Garmin/ConnectIQ/current-sdk.cfg")bin"   # active SDK; put $SDK/ before monkeyc and monkeydo
+# Windows (not verified here): %APPDATA%\Garmin\ConnectIQ\current-sdk.cfg, tools are monkeyc.bat and monkeydo.bat
+# Linux (not verified here): ~/.Garmin/ConnectIQ/current-sdk.cfg
 
 # one device, with tests
 monkeyc -f monkey.jungle -o test.prg -y developer_key -d fr165 -t -w
