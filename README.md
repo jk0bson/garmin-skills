@@ -31,6 +31,7 @@ Apps shipped with these skills, on the Connect IQ Store:
 - [Racket Score: 6 Racket Sports](https://apps.garmin.com/apps/510d5ae7-8075-4ad6-b775-c83ee8138f4e): scorekeeper for 6 racket sports
 - [goal goal goal!: Football & Futsal Score](https://apps.garmin.com/apps/93395c58-a751-4864-b716-0c28984afb2e): football and futsal scorekeeper
 - [next next next!: Routines, step by step](https://apps.garmin.com/apps/dfb7afa2-26ae-4ca7-bce1-e5ea04a48f55): step-by-step routine timer
+- [timer timer timer!: Kitchen Timers](https://apps.garmin.com/apps/9ce6242f-8b9c-4311-84b4-df93b9c7e4a4): multi-timer utility
 
 ## Install
 
