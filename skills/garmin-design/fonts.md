@@ -12,7 +12,16 @@ System fonts change between watches, and small MIP screens have no vector fonts.
 4. Start the line at the tallest glyph and end it at the lowest descender, so `TEXT_JUSTIFY_VCENTER` centers on the ink. Number fonts without descenders get a line exactly as tall as the digits.
 5. Save to `resources-round-WxH/fonts/` with a `fonts.xml`, plus a fallback in `resources/fonts/`.
 
-`scripts/bitmap_fonts.py` does all of this from your manifest's device list.
+`scripts/bitmap_fonts.py` does all of this from your manifest's device list. A font named `big_num` gets the id `BigNumFont`; it warns when an atlas is taller than 1024 px; it finds the SDK's `Devices` folder on macOS, Windows and Linux.
+
+Check translations with `--strings`, before shipping:
+
+```sh
+python3 bitmap_fonts.py --project . --font "label:..." \
+    --strings resources-fre/strings/strings.xml --ids '^L'
+```
+
+It lists every character of those strings that a font with letters does not contain, and exits with 1 if any is missing. `--ids` is a regex on string ids (here the labels); without it every string is checked, including settings titles drawn by the system font. Tested on zonely: clean on its real labels, and it caught a planted `Œ` and `~`.
 
 ## Pitfalls
 

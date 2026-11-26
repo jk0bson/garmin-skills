@@ -39,7 +39,7 @@ MIP screens show 64 colors, channel values 00/55/AA/FF only. The compiler rounds
 
 ## Draw arcs with `drawArc`
 
-Arcs built from polygons look hand-drawn on a real watch. `dc.drawArc` is smooth. An arc from an angle to itself draws a full circle: guard zero-length arcs. Pass whole-degree angles: SDK 9.2 types them `Numeric`, but Float angles were truncated in a segmented ring (seen on Instinct 3 by another developer, not verified here).
+Arcs built from polygons look hand-drawn on a real watch. `dc.drawArc` is smooth. Angle 0 is at 3 o'clock, not at noon, and `ARC_CLOCKWISE` / `ARC_COUNTER_CLOCKWISE` picks the direction (SDK 9.2 docs). On AMOLED, call `dc.setAntiAlias(true)` first, guarded by `dc has :setAntiAlias`; it does not work on a `BufferedBitmap` with a palette (SDK docs, not verified here). An arc from an angle to itself draws a full circle: guard zero-length arcs. Pass whole-degree angles: SDK 9.2 types them `Numeric`, but Float angles were truncated in a segmented ring (seen on Instinct 3 by another developer, not verified here).
 
 ## Draw text on a transparent background
 
