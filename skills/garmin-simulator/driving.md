@@ -54,3 +54,15 @@ Move the window to a fixed position first so every capture has the same crop.
 
 - No `timeout` command.
 - Unit tests: `monkeydo test.prg fr165 -t` prints PASS/FAIL per test.
+
+## Windows and Linux
+
+Not verified here (this skill was written on macOS). From the SDK docs and Connect IQ's own file layout:
+
+| | Windows | Linux |
+|---|---|---|
+| Active SDK path | `%APPDATA%\Garmin\ConnectIQ\current-sdk.cfg` | `~/.Garmin/ConnectIQ/current-sdk.cfg` |
+| Simulator | `bin\simulator.exe` | `bin/simulator` |
+| Run an app | `monkeydo.bat app.prg fr165` | `monkeydo app.prg fr165` |
+
+The menu and mouse driving above uses System Events and `CGEventPost`: it works on macOS only. On Windows or Linux, click the simulator by hand or with a tool of that system.

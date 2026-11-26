@@ -18,7 +18,11 @@ Order: choose the source, load the file, press Start (timer), then play.
 ```sh
 python3 demo_run.py run.fit 300     # 5 minutes
 python3 demo_run.py short.fit 60    # quick 1-minute check
+python3 demo_run.py ride.fit 600 --sport cycling      # a ride: 7 to 11 m/s, power, rpm
+python3 demo_run.py brussels.fit 300 --lat 50.85 --lon 4.35 --seed 3
 ```
+
+Cycling power is air drag (v cubed) plus rolling resistance plus slope, for an 80 kg rider and bike, and falls to 0 W while coasting downhill; a short surge near 400 W where the speed carried into the climb is a model artifact. The sport message is 2 and cadence is written in rpm as is; running cadence is strides per minute (steps ÷ 2). The same `--seed` gives the same file apart from its start time. Running output is byte-for-byte what it was before these options, checked with the clock frozen.
 
 It is synthetic, not a recorded run. A real run exported from Garmin Connect ("Export Original") replays the same way.
 
