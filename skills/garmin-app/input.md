@@ -40,3 +40,7 @@ class MyDelegate extends WatchUi.InputDelegate {
 ## Watch face touch
 
 In a watch face, `WatchFaceDelegate.onPress(evt)` gets the touch. Find the complication under `evt.getCoordinates()` and open Garmin's own widget with `Complications.exitTo(id)` inside a `try` (seen in Crystal Face, not verified here).
+
+## Vibration and sound
+
+Not every watch vibrates or beeps: test `Attention has :vibrate` and `Attention has :playTone` before calling them (seen in Tesla-Link, not verified here).

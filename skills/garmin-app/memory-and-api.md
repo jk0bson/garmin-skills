@@ -13,7 +13,8 @@ Each device's `compiler.json` (in the SDK's `Devices` folder) gives its limits u
 ## Background and network
 
 - Background events at most every 5 minutes, 30 seconds each; a watch face only while it is active.
-- Internet only through the phone (`Communications.makeWebRequest`). A data field cannot use it.
+- Internet only through the phone (`Communications.makeWebRequest`). A data field cannot use it. Error codes and request rules: [network.md](network.md).
+- Some watches give a background task only 32 KB: keep what it holds and returns small, and measure it on those watches (seen in Tesla-Link, not verified here).
 
 ## Watch faces
 
