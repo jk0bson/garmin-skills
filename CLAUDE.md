@@ -16,6 +16,7 @@ Whenever you fix a `monkeyc` error, a `-w` warning, a simulator bug or a Garmin 
 | colors, fonts, layout | `skills/garmin-design/*.md` |
 | simulator | `skills/garmin-simulator/*.md` |
 | store listing and images | `skills/garmin-store/*.md` |
+| pre-publication checklist, working protocol | `skills/garmin-release/SKILL.md` |
 
 ## Rules for rules
 
@@ -23,6 +24,7 @@ Whenever you fix a `monkeyc` error, a `-w` warning, a simulator bug or a Garmin 
 - Keep the real story (the shower drop, the brown that turned olive, the 14 overflowing labels): it is why the rule is believed.
 - Keep every `SKILL.md` under 100 lines; code, commands and long lists go in the secondary files.
 - One home per topic: update the existing rule instead of adding a second one elsewhere.
-- Never rename `skills/garmin-app`, `garmin-design`, `garmin-simulator`, `garmin-store` or `.claude-plugin/`: installs depend on them.
+- This repo is public: no name, path or script of anyone's private apps or tooling in `skills/` or `scripts/`; `tests/test_store_assets.py` checks it for the new files.
+- Never rename `skills/garmin-app`, `garmin-design`, `garmin-simulator`, `garmin-store`, `garmin-release` or `.claude-plugin/`: installs depend on them.
 - From other repos, take ideas in our own words; never copy code from GPL or unlicensed projects.
 - Bump `version` in `.claude-plugin/plugin.json` for every user-facing change, or `/plugin marketplace update` will not see it.

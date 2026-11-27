@@ -19,7 +19,7 @@ A title that says what people search for beats a bare name: "zonely: Run in the 
 
 ## Show the real thing, composed
 
-Raw simulator screenshots sell poorly and the site upscales 390 px images into mush. Compose 900×900 images: a short headline in large type, one line under it, the real watch screen large in a round bezel ([images.md](images.md)). Every watch screen comes from the real app in the simulator, never a mockup.
+Raw simulator screenshots sell poorly and the site upscales 390 px images into mush. Compose 900×900 images: a short headline in large type, one line under it, the real watch screen large in a round bezel ([images.md](images.md)). Every watch screen comes from the real app in the simulator, never a mockup. `scripts/store_assets.py` composes the cover, hero, screenshots and GIF from your captures (`--preset watchface|app|datafield`).
 
 ## Put motion first
 

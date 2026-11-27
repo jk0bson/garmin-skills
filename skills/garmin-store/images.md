@@ -1,5 +1,7 @@
 # Store images
 
+`scripts/store_assets.py` does everything below from square captures: `--preset watchface` (flat colours of the face, no bezel), `app` (dark backdrop, glow, bezel) and `datafield` (the same on a track backdrop); run `python3 store_assets.py --help`. The sections explain what it does and why.
+
 ## Screenshot layout (900×900)
 
 - Dark textured background that suits the app (track lanes, pitch, wood), a soft glow in the accent color behind the watch.

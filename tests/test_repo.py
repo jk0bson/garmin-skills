@@ -3,7 +3,7 @@ import pytest
 from conftest import ROOT
 
 SKILLS = os.path.join(ROOT, "skills")
-NAMES = ["garmin-app", "garmin-design", "garmin-simulator", "garmin-store"]       # installs depend on these names
+NAMES = ["garmin-app", "garmin-design", "garmin-simulator", "garmin-store", "garmin-release"]       # installs depend on these names
 
 
 @pytest.mark.parametrize("name", NAMES)
