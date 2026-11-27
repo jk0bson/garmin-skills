@@ -104,3 +104,21 @@ def test_unknown_device_is_a_clear_error(tmp_path):
     (proj / "manifest.xml").write_text('<iq:manifest><iq:product id="nodevice"/></iq:manifest>')
     r = run(proj, dev)
     assert r.returncode != 0 and "nodevice" in (r.stderr + r.stdout)
+
+
+def test_strings_read_only(tmp_path):
+    """--strings without --font audits the existing .fnt files and writes nothing"""
+    proj, dev = make_project(tmp_path)
+    assert run(proj, dev).returncode == 0                    # generate the fonts once
+    snap = lambda: {p: p.read_bytes() for p in proj.rglob("*") if p.is_file()}
+    before = snap()
+    bad = tmp_path / "bad.xml"
+    bad.write_text('<resources><string id="LTitle">ABC~</string></resources>')
+    ok = tmp_path / "ok.xml"
+    ok.write_text('<resources><string id="LTitle">ABC 12</string></resources>')
+    cmd = lambda x: subprocess.run([sys.executable, SCRIPT, "--project", str(proj), "--strings", str(x)],
+                                   capture_output=True, text=True)
+    assert cmd(ok).returncode == 0
+    r = cmd(bad)
+    assert r.returncode == 1 and "~" in r.stdout
+    assert snap() == before

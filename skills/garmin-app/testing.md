@@ -30,6 +30,7 @@ monkeyc -f monkey.jungle -o app.iq -y developer_key -e -r -w   # wait for "N OUT
 - `fitContributions.xml` needs a `unitLabel` that points at a real `@Strings.x`.
 - "Cannot resolve type 'Duration'": add `import Toybox.Time`.
 - macOS has no `timeout` command.
+- `run ? s.start() : s.stop();` as a statement fails with "The result of this expression is not used": write an `if`/`else` (sauna, SDK 9.2).
 - A font loaded in `onLayout` into `var f as FontResource` warns about `Null` at `-l 2`: declare it `(:initialized) var f as FontResource;` (seen on Instinct 3 by another developer, not verified here).
 - Strict typing (SDK docs, not verified here): a concrete type does not accept `null` (write `Number?`); `Array<String>` does not match `Array<String or Number>`; a null check on a member variable is forgotten after any function call, so copy the member to a local first.
 - A UTF-8 byte-order mark at the start of a `strings.xml` broke the build: save resource XML without BOM (seen in Crystal Face, not verified here).
@@ -69,3 +70,5 @@ function paceFiveMinutes(logger as Logger) as Boolean {
 ```
 
 The simulator must be running before `monkeydo test.prg fr165 -t`.
+
+- A null check on something the SDK types as non-null (e.g. the iterator from `SensorHistory.getElevationHistory`, documented as always returned once `has :getElevationHistory` passes) builds with the warning "Statement is not reachable" under `-w`. Check `Devices/<id>/<id>.api.debug.xml` before adding such a guard; the `has` check is the one that protects (seen in aestify, 12 → 13 warnings, guard removed).

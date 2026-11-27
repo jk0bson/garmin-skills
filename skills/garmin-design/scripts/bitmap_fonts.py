@@ -22,6 +22,9 @@ A name like big_num gives the id BigNumFont.
   every string is checked, including settings titles the system font draws. Exit status 1 if any is missing.
   Use it before shipping a translation: "+", "/" and "U with circumflex" were once missing from a released face.
 
+Without --font, --strings only reads: it checks the .fnt files already in --project (the characters they hold)
+against the strings, and writes nothing (no .fnt, .png or fonts.xml). Use it with fonts made by your own generator.
+
 Requires Pillow.
 """
 import argparse, json, os, re, sys
@@ -128,14 +131,33 @@ def check_strings(paths, fonts, id_regex):
     return missing
 
 
+def project_fonts(project):
+    """(name, ttf, em, characters, tracking) of the .fnt files already in the project, one entry per font name"""
+    chars = {}
+    for root, _, files in os.walk(project):
+        for fn in files:
+            if fn.endswith(".fnt"):
+                with open(os.path.join(root, fn), encoding="utf-8") as f:
+                    ids = re.findall(r"^char id=(\d+)", f.read(), re.M)
+                chars.setdefault(fn[:-4], set()).update(chr(int(i)) for i in ids)
+    return [(n, None, 0, "".join(sorted(c)), 0.0) for n, c in sorted(chars.items())]
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--project", default=".", help="folder with manifest.xml")
     ap.add_argument("--devices", default=DEFAULT_DEVICES, help="Connect IQ Devices folder")
-    ap.add_argument("--font", action="append", required=True, help="name:path.ttf:em:tracking:characters")
+    ap.add_argument("--font", action="append", default=[], help="name:path.ttf:em:tracking:characters")
     ap.add_argument("--strings", action="append", default=[], help="strings.xml to check against the fonts (repeatable)")
     ap.add_argument("--ids", help="with --strings: only string ids matching this regex")
     args = ap.parse_args()
+    if not args.font:   # read-only audit of the .fnt files already in the project
+        if not args.strings:
+            ap.error("give --font to generate fonts, or --strings to check the existing ones")
+        fonts = project_fonts(args.project)
+        if not fonts:
+            raise SystemExit(f"no .fnt file under {args.project}")
+        sys.exit(1 if check_strings(args.strings, fonts, args.ids) else 0)
     fonts = []
     for spec in args.font:
         name, ttf, em, track, chars = spec.split(":", 4)

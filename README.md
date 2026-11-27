@@ -15,7 +15,7 @@ Everything here comes from shipping real apps — a running data field, two watc
 
 ## Scripts
 
-- [`bitmap_fonts.py`](skills/garmin-design/scripts/bitmap_fonts.py): BMFont fonts for every round screen size in your manifest, antialiased on the watch, line height trimmed for true vertical centering. `--strings` lists the characters your translations use that a font lacks. Works on macOS, Windows and Linux.
+- [`bitmap_fonts.py`](skills/garmin-design/scripts/bitmap_fonts.py): BMFont fonts for every round screen size in your manifest, antialiased on the watch, line height trimmed for true vertical centering. `--strings` lists the characters your translations use that a font lacks (without `--font` it only reads the project's existing `.fnt` files). Works on macOS, Windows and Linux.
 - [`demo_run.py`](skills/garmin-simulator/scripts/demo_run.py): a believable run or ride (`--sport cycling`, with power from drag, rolling and slope) as a FIT file to replay in the simulator, anywhere on Earth (`--lat`, `--lon`). No dependencies.
 - [`check_listing.py`](skills/garmin-store/scripts/check_listing.py): checks a store listing folder (title and description limits, `<` and `>`, image sizes and weights) before you upload it.
 

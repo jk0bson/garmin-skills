@@ -44,3 +44,5 @@ In a watch face, `WatchFaceDelegate.onPress(evt)` gets the touch. Find the compl
 ## Vibration and sound
 
 Not every watch vibrates or beeps: test `Attention has :vibrate` and `Attention has :playTone` before calling them (seen in Tesla-Link, not verified here).
+- Swipes: `onSwipe(evt)` with `evt.getDirection() == WatchUi.SWIPE_LEFT` (next page) or `SWIPE_RIGHT` (previous). Verified on FR165 in the simulator; `onFlick` takes the same call and compiles, but the simulator never fired it, so it is unverified.
+- On touch watches, draw one button per action and test only its circle; a reset or delete button shows only while the timer is paused (`timer timer timer!`), so a wet finger cannot wipe a running timer.

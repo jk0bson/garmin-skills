@@ -41,6 +41,11 @@ function run(a){ var p=$.CGPointMake(+a[0],+a[1]), c=a.length>2?+a[2]:1;
 
 Coordinates are in screen points (Retina pixels ÷ 2). Popup buttons that refuse a System Events click open with one real click.
 
+## Swipe and long press
+
+- A swipe is `LeftMouseDown`, ten `LeftMouseDragged` steps 20 ms apart, then `LeftMouseUp`: it reaches `onSwipe` with the right direction (verified on FR165, `timer timer timer!`). A lone event sometimes gets lost; check the screen.
+- A long press on UP is a real mouse press held 1.6 s on the UP button drawn on the watch picture: it arrives as `KEY_MENU` (verified on FR165). No menu item does it.
+
 ## Screenshots
 
 ```sh
@@ -66,3 +71,6 @@ Not verified here (this skill was written on macOS). From the SDK docs and Conne
 | Run an app | `monkeydo.bat app.prg fr165` | `monkeydo app.prg fr165` |
 
 The menu and mouse driving above uses System Events and `CGEventPost`: it works on macOS only. On Windows or Linux, click the simulator by hand or with a tool of that system.
+- Quitting with `pkill` loses recent `Application.Storage` writes (a running stopwatch came back at 0:00); to test persistence quit the app with BACK, then relaunch. Storage looked separate per device here (FR165, FR255S and fēnix 9 Pro each had their own timers), not shared as an older note said.
+- To fake a phone setting change, patch the float in `$TMPDIR/com.garmin.connectiq/GARMIN/APPS/SETTINGS/<APP>.SET` (values are big-endian float32, after a key table), then relaunch the app. Settings > Trigger App Settings did not reload the edited file, so it only proves nothing changed.
+- Venu 3 and vívoactive 5 expose only `enter`, `menu`, `esc` (no UP/DOWN): swipes and taps are the whole navigation there.

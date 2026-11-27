@@ -21,10 +21,12 @@ Each device's `compiler.json` (in the SDK's `Devices` folder) gives its limits u
 - Garmin data (Body Battery, recovery, sunrise and sunset) comes from `Toybox.Complications` with the `ComplicationSubscriber` permission. The weather location can be empty on a real watch; sunrise/sunset complications are the reliable source (verified on FR165).
 - `Activity.getActivityInfo()` is `null` in a watch face almost all the time (no activity running): read all-day data from `ActivityMonitor` and `SensorHistory` (seen on Instinct 3 by another developer, not verified here).
 - A watch face cannot read HRV status, training load, training readiness or sleep duration. Training Status (API 4.2) and Sleep Score (API 6.0.2) exist only as complications, and `subscribeToUpdates` returns `false` on a watch that does not publish them. Do not promise the rest (seen on Instinct 3 by another developer, not verified here).
+- `System.getSystemStats().usedMemory` counts only the heap, not bitmaps: ephemera read 27.5 KB of 126.8 KB on fr255s (218 px) and on fēnix 9 Pro 51 mm (466 px) whichever engraving, frame or font was loaded. Bitmaps live in the graphics pool, which no API reports; read the simulator's memory view or test on a real watch (verified in the simulator).
 - AMOLED always-on (`onEnterSleep`): at most about 10 % of pixels lit, nothing fixed for more than about 3 minutes; shift a few pixels every minute. `onPartialUpdate` (seconds) exists only on MIP screens. Check with the simulator's File > View Screen Heat Map.
 
 ## Activity recording
 
+- Wrap every `ActivityRecording` call (`createSession`, `start`, `stop`, `addLap`, `save`, `discard`) and `Storage.setValue` in `try`, above all in `onStop`: a refused recording or a full storage must not kill the app; let the session run unrecorded. A store user reported a crash with no ERA log on sauna 1.0.3 (cause not reproduced; RAM was 28 KB of 512 on FR255).
 - The activity name is fixed in `createSession`, before the start: a final score cannot go in the name.
 - `FitContributor` adds summary fields, including text (`DATA_TYPE_STRING` with `:count`). How Garmin Connect shows them is **unverified**; check a real activity.
 
@@ -46,6 +48,8 @@ Properties, from the SDK docs, not verified here:
 - `type="number"` is 32-bit: use `type="long"` for timestamps.
 - User settings go in Properties, internal state in `Application.Storage`.
 
+- `Properties.getValue(k) as Number` is a compile-time cast only: a null, a string or `-1` still arrives, and `options[v]` or `v + 1` then crashes. Read it with `v instanceof Number && v >= 0 && v < size` and fall back to a default, also in the on-watch menu, not only in the face (seen in aestify's settings menu; the crash itself was not reproduced, the guard was checked in the simulator with 99, -1 and 7).
+
 ## No garbage collector
 
 Monkey C counts references: two objects that point at each other (view and app, child and parent) are never freed. Hold the back link as `parent.weak()` and read it with `.get()`, which returns `null` once the parent is gone (SDK docs, not verified here).
@@ -65,3 +69,4 @@ From Crystal Face (117 watches) and its fork (seen in Crystal Face, not verified
 ## Resources
 
 Load fonts and bitmaps once with `WatchUi.loadResource` in `onLayout` (or `initialize`) and keep them in member variables; never in `onUpdate`, which runs every second or more. Drop large ones in `onHide` if the view can come back later.
+- A value the user sets on the watch must not go back into `Application.Properties`: the phone sync can overwrite it. Keep it in `Application.Storage`, read it before the property, and drop it only when the phone value differs from the last phone value seen (store that too). Verified on Venu 3 in the simulator at launch (`timer timer timer!`); the `onSettingsChanged` path shares the code but was not exercised with a changed value.
