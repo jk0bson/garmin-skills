@@ -9,7 +9,9 @@
 - The watch screen large, cropped exactly to the round screen, in a thin dark bezel with a drop shadow.
 - Order: the main screen in real use, then the most popular modes, then the clever features. Keep popular first, not newest.
 
-## Hero (1440×720, one per language)
+## Hero (1440×720, one per language; cover and screenshots are shared)
+
+Only the hero is uploaded per language tab. Compose the cover and screenshots once, in the main language: the form has one set for all languages (verified in the live form: the same 5 screenshots appear in every language tab).
 
 Three watches on the left (main screen large, two others behind), the name and a two-line promise on the right.
 

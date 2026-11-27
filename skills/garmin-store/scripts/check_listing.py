@@ -9,13 +9,16 @@ Folder layout (the same as a project's store/ folder):
   images/                    cover, hero and screens named in store.json
 
 Checks: title at most 50 characters, description at most 4000, no < or > in descriptions or What's New,
-cover 500x500 under 300 KB, hero 1440x720 under 2 MB per language, at most 5 screenshots per language,
+language codes of the store form (en, de, fr, es, it, nl, pl, pt_BR...), cover 500x500 under 300 KB, hero 1440x720 under
+2 MB per language, at most 5 screenshots (shared by all languages: only the first language's are checked),
 each under 150 KB. A screenshot that is not 900x900 (450x450 for a GIF) is only a note.
 Usage: python3 check_listing.py STORE_FOLDER      Needs Pillow for the image sizes.
 """
 import json, os, re, sys
 
 LIMITS = {"title": 50, "description": 4000, "cover_kb": 300, "hero_kb": 2048, "screen_kb": 150, "screens": 5}
+# the codes of the form's language list (read from the live form); manifest.xml uses other, three-letter codes (eng, deu, fre...)
+PORTAL_LANGS = ("in ms cs da de en es fr hr it hu nl nb pl pt_BR pt_PT sk sl fi sv el ru iw th ko ja zh_CN zh_TW").split()
 
 
 def check_image(path, size, max_kb, errors, notes=None, allowed=None):
@@ -44,6 +47,8 @@ def check(folder):
         store = json.load(f)
     langs = store.get("langues", ["en"])
     for lang in langs:
+        if lang not in PORTAL_LANGS:
+            errors.append(f"language {lang}: not a code of the store form ({' '.join(PORTAL_LANGS)})")
         title = store.get("titres", {}).get(lang, "")
         if not title:
             errors.append(f"title {lang} missing")
@@ -79,9 +84,9 @@ def check(folder):
     for lang in langs:
         check_image(os.path.join(img, store.get("hero", "hero_1440x720_{lang}.png").format(lang=lang)),
                     (1440, 720), LIMITS["hero_kb"], errors)
-        for name in screens:
-            check_image(os.path.join(img, name.format(lang=lang)), None, LIMITS["screen_kb"], errors, notes,
-                        [(900, 900), (450, 450)])
+    for name in screens:   # the form has one set of screenshots for all languages: the first language's
+        check_image(os.path.join(img, name.format(lang=langs[0])), None, LIMITS["screen_kb"], errors, notes,
+                    [(900, 900), (450, 450)])
     return errors, notes
 
 

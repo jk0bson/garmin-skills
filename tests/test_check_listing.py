@@ -76,3 +76,16 @@ def test_missing_parts(store):
     errors, _ = cl.check(str(store))
     assert any("description_fr.txt missing" in e for e in errors) and any("part FR" in e for e in errors)
     assert cl.check(str(store / "nowhere"))[0] == [f"store.json missing in {store / 'nowhere'}"]
+
+
+def test_seven_languages_and_unknown_code(store):
+    langs = ["en", "de", "fr", "es", "it", "nl", "pl"]
+    s = json.load(open(store / "store.json")); s["langues"] = langs + ["eng"]
+    s["titres"] = {l: f"title {l}" for l in langs + ["eng"]}
+    json.dump(s, open(store / "store.json", "w"))
+    (store / "whats_new.txt").write_text("".join(f"{l.upper()}:\nnew\n\n" for l in langs + ["eng"]))
+    for l in langs + ["eng"]:
+        (store / f"description_{l}.txt").write_text("ok")
+        png(store / "images" / f"hero_1440x720_{l}.png", (1440, 720))
+    errors, _ = cl.check(str(store))
+    assert errors == [f"language eng: not a code of the store form ({' '.join(cl.PORTAL_LANGS)})"]   # the 7 portal codes pass, eng is the manifest's code
